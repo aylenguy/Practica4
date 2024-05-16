@@ -1,9 +1,16 @@
 import { useState } from "react";
 import CloseButton from "react-bootstrap/CloseButton";
-import propTypes from "prop-types";
+import NuevaTarea from "../nuevaTarea/NuevaTarea";
 
-function Tarea({ tareas, onDeleteTarea }) {
+const TAREAS = [];
+
+function Tarea() {
+  const [tareas, setTareas] = useState(TAREAS);
   const [tareaRealizada, setTareaRealizada] = useState([]);
+
+  const onAddTarea = (nuevaTarea) => {
+    setTareas([...tareas, { tarea: nuevaTarea }]);
+  };
 
   const handlerSelect = (i) => {
     if (tareaRealizada.includes(i)) {
@@ -13,12 +20,15 @@ function Tarea({ tareas, onDeleteTarea }) {
     }
   };
 
-  const handleEliminarTarea = (i) => {
-    onDeleteTarea(i);
+  const handlerEliminarTarea = (i) => {
+    const nuevasTareas = [...tareas];
+    nuevasTareas.splice(i, 1); //eliminar la tarea en el índice proporcionado
+    setTareas(nuevasTareas);
   };
 
   return (
     <>
+      <NuevaTarea onAddTarea={onAddTarea} />
       <h2>Lista de Tareas:</h2>
       <ul>
         {tareas.map((tarea, index) => (
@@ -31,7 +41,7 @@ function Tarea({ tareas, onDeleteTarea }) {
             }}
           >
             {tarea && tarea.tarea}
-            <CloseButton onClick={(event) => handleEliminarTarea(event, index)}>
+            <CloseButton onClick={() => handlerEliminarTarea(index)}>
               Eliminar
             </CloseButton>
           </li>
@@ -40,10 +50,5 @@ function Tarea({ tareas, onDeleteTarea }) {
     </>
   );
 }
-
-Tarea.propTypes = {
-  tareas: propTypes.array,
-  onDeleteTarea: propTypes.func.isRequired,
-};
 
 export default Tarea;
