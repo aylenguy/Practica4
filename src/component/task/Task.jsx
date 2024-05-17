@@ -34,14 +34,16 @@ function Task() {
             onClick={() => handleSelect(task.id)}
             style={{
               cursor: "pointer",
-              color: completedTasks.includes(task.id) ? "grey" : "black",
+              color: completedTasks.includes(task.id) ? "green" : "black",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
           >
             {task.task}
-            <CloseButton onClick={() => handleDeleteTask(task.id)} />
+            <CloseButton onClick={() => handleDeleteTask(task.id)}>
+              Eliminar
+            </CloseButton>
           </li>
         ))}
       </ul>
