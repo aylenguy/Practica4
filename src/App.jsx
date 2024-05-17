@@ -1,9 +1,9 @@
-import Tarea from "./component/tarea/Tarea";
+import Task from "./component/task/Task";
 
 function App() {
   return (
     <>
-      <Tarea />
+      <Task />
     </>
   );
 }
